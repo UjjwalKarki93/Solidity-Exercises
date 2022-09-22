@@ -7,7 +7,7 @@ contract EventTickets {
      address payable public owner;   //to get default getter function
 
 
-    uint   TICKET_PRICE = 100 wei;
+    uint   TICKET_PRICE = 5000000000000000000 wei;
 
     struct Event{
         string description;
@@ -64,7 +64,7 @@ contract EventTickets {
 
       require(EventInstance.isOpen,"event is closed or not started");
       require(_numTickets <= EventInstance.totalTickets,"you cant buy more tickets than declared");
-      require((_numTickets*TICKET_PRICE)>=msg.value,"insufficient amount");
+      require((_numTickets*TICKET_PRICE) <= msg.value,"insufficient amount");
       require(EventInstance.sales<EventInstance.totalTickets,"tickets are out of stock");
 
       EventInstance.Buyers[msg.sender]=_numTickets;
@@ -82,7 +82,7 @@ contract EventTickets {
 
     function getRefund()public{
       require(EventInstance.Buyers[msg.sender]>0,"you haven't purchased the tickets");
-      uint amounToBeRefunded=EventInstance.Buyers[msg.sender];
+      uint amounToBeRefunded= EventInstance.Buyers[msg.sender]*TICKET_PRICE;
       uint refundTickets=EventInstance.Buyers[msg.sender];
       EventInstance.totalTickets += refundTickets;
       EventInstance.sales -= refundTickets;
