@@ -82,9 +82,12 @@ contract EventTickets {
 
     function getRefund()public{
       require(EventInstance.Buyers[msg.sender]>0,"you haven't purchased the tickets");
+      uint amounToBeRefunded=EventInstance.Buyers[msg.sender];
       uint refundTickets=EventInstance.Buyers[msg.sender];
       EventInstance.totalTickets += refundTickets;
       EventInstance.sales -= refundTickets;
+      payable(msg.sender).transfer(amounToBeRefunded);
+      
       emit LogGetRefund(msg.sender,refundTickets);
 
 
