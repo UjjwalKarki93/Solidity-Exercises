@@ -7,7 +7,7 @@ contract EventTickets {
      address payable public owner;   //to get default getter function
 
 
-    uint   TICKET_PRICE = 5000000000000000000 wei;
+    uint   TICKET_PRICE = 100 wei;
 
     struct Event{
         string description;
